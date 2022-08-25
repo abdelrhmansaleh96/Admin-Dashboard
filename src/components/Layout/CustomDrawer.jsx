@@ -1,8 +1,19 @@
-import React from "react";
-import classes from "./Navbar.module.scss";
-import { styled, alpha } from "@mui/material/styles";
+import * as React from "react";
+import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import MailIcon from "@mui/icons-material/Mail";
+import MenuIcon from "@mui/icons-material/Menu";
+import { styled, alpha } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -10,12 +21,163 @@ import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import MoreIcon from "@mui/icons-material/MoreVert";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import Avatar from "@mui/material/Avatar";
+import person1 from "../../assets/images/person1.jpg";
+
+const drawerWidth = 240;
+
+function CustomDrawer(props) {
+  const { window } = props;
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  const drawer = (
+    <div>
+      <Typography
+        variant="h5"
+        color="primary"
+        textAlign="center"
+        sx={{
+          marginTop: "18px",
+          height: "46px",
+        }}
+      >
+        LamaAdmin
+      </Typography>
+      <Divider />
+      <List>
+        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+          <ListItem
+            key={text}
+            disablePadding
+            sx={{
+              transition: "all 0.1s ease-in-out",
+              "&:hover": {
+                transform: "scale(1.1)",
+              },
+            }}
+          >
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? (
+                  <InboxIcon color="primary" />
+                ) : (
+                  <MailIcon color="primary" />
+                )}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {["All mail", "Trash", "Spam"].map((text, index) => (
+          <ListItem
+            key={text}
+            disablePadding
+            sx={{
+              transition: "all 0.1s ease-in-out",
+              "&:hover": {
+                transform: "scale(1.1)",
+              },
+            }}
+          >
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? (
+                  <InboxIcon color="primary" />
+                ) : (
+                  <MailIcon color="primary" />
+                )}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
+
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
+
+  return (
+    <>
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <PrimarySearchAppBar handleDrawerToggle={handleDrawerToggle} />
+        <Box
+          component="nav"
+          sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+          aria-label="mailbox folders"
+        >
+          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+          <Drawer
+            container={container}
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+            sx={{
+              display: { xs: "block", sm: "none" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+              },
+            }}
+          >
+            {drawer}
+          </Drawer>
+          <Drawer
+            variant="permanent"
+            sx={{
+              display: { xs: "none", sm: "block" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+              },
+            }}
+            open
+          >
+            {drawer}
+          </Drawer>
+        </Box>
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            p: 3,
+            width: { sm: `calc(100% - ${drawerWidth}px)` },
+          }}
+        >
+          {props.children}
+        </Box>
+      </Box>
+    </>
+  );
+}
+
+CustomDrawer.propTypes = {
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window: PropTypes.func,
+};
+
+export default CustomDrawer;
+
+// APPBAR
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -30,6 +192,7 @@ const Search = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(3),
     width: "auto",
+    minWidth: "40%",
   },
 }));
 
@@ -57,7 +220,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function PrimarySearchAppBar() {
+function PrimarySearchAppBar({ handleDrawerToggle }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -123,7 +286,7 @@ function PrimarySearchAppBar() {
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
-            <MailIcon />
+            <EmailOutlinedIcon />
           </Badge>
         </IconButton>
         <p>Messages</p>
@@ -135,7 +298,7 @@ function PrimarySearchAppBar() {
           color="inherit"
         >
           <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
+            <NotificationsOutlinedIcon />
           </Badge>
         </IconButton>
         <p>Notifications</p>
@@ -148,7 +311,7 @@ function PrimarySearchAppBar() {
           aria-haspopup="true"
           color="inherit"
         >
-          <AccountCircle />
+          <Avatar alt="Remy Sharp" src={person1} />
         </IconButton>
         <p>Profile</p>
       </MenuItem>
@@ -156,27 +319,28 @@ function PrimarySearchAppBar() {
   );
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <AppBar sx={{ width: "100%" }}>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar
+        position="fixed"
+        sx={{
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          ml: { sm: `${drawerWidth}px` },
+          backgroundColor: "white",
+          color: "black",
+        }}
+      >
         <Toolbar>
           <IconButton
             size="large"
             edge="start"
-            color="inherit"
             aria-label="open drawer"
-            sx={{ mr: 2 }}
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: "none" } }}
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-            MUI
-          </Typography>
-          <Search>
+
+          <Search sx={{ border: "1px solid lightgrey" }}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -193,7 +357,7 @@ function PrimarySearchAppBar() {
               color="inherit"
             >
               <Badge badgeContent={4} color="error">
-                <MailIcon />
+                <EmailOutlinedIcon />
               </Badge>
             </IconButton>
             <IconButton
@@ -202,7 +366,7 @@ function PrimarySearchAppBar() {
               color="inherit"
             >
               <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
+                <NotificationsOutlinedIcon />
               </Badge>
             </IconButton>
             <IconButton
@@ -214,7 +378,7 @@ function PrimarySearchAppBar() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <Avatar alt="Remy Sharp" src={person1} />
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
@@ -236,13 +400,3 @@ function PrimarySearchAppBar() {
     </Box>
   );
 }
-
-function Navbar() {
-  return (
-    <div>
-      <PrimarySearchAppBar />
-    </div>
-  );
-}
-
-export default Navbar;

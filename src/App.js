@@ -7,7 +7,7 @@ import New from "./pages/New/New";
 import Login from "./pages/Login/Login";
 import { ThemeProvider } from "@mui/material/styles";
 import { useMainContext } from "./context/main_context";
-import Layout from "./components/Layout";
+import Layout from "./components/Layout/Layout";
 
 function App() {
   const { theme } = useMainContext();

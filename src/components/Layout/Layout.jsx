@@ -1,13 +1,12 @@
 import React from "react";
 import CustomDrawer from "./CustomDrawer";
-import classes from "./Sidebar.module.scss";
 
-function Sidebar({ children }) {
+const Layout = ({ children }) => {
   return (
-    <>
+    <div className="app-layout">
       <CustomDrawer>{children}</CustomDrawer>
-    </>
+    </div>
   );
-}
+};
 
-export default Sidebar;
+export default Layout;
