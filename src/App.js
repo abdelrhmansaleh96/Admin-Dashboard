@@ -7,6 +7,7 @@ import New from "./pages/New/New";
 import Login from "./pages/Login/Login";
 import { ThemeProvider } from "@mui/material/styles";
 import { useMainContext } from "./context/main_context";
+import Layout from "./components/Layout";
 
 function App() {
   const { theme } = useMainContext();
@@ -14,23 +15,25 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          <Routes>
-            <Route path="/">
-              <Route index element={<Home />} />
-              <Route path="login" element={<Login />} />
-              <Route path="new" element={<New />} />
-              <Route path="users">
-                <Route index element={<List />} />
-                <Route path=":userId" element={<Single />} />
+          <Layout>
+            <Routes>
+              <Route path="/">
+                <Route index element={<Home />} />
+                <Route path="login" element={<Login />} />
                 <Route path="new" element={<New />} />
+                <Route path="users">
+                  <Route index element={<List />} />
+                  <Route path=":userId" element={<Single />} />
+                  <Route path="new" element={<New />} />
+                </Route>
+                <Route path="products">
+                  <Route index element={<List />} />
+                  <Route path=":productId" element={<Single />} />
+                  <Route path="new" element={<New />} />
+                </Route>
               </Route>
-              <Route path="products">
-                <Route index element={<List />} />
-                <Route path=":productId" element={<Single />} />
-                <Route path="new" element={<New />} />
-              </Route>
-            </Route>
-          </Routes>
+            </Routes>
+          </Layout>
         </BrowserRouter>
       </ThemeProvider>
     </>

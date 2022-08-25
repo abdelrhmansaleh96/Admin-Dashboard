@@ -5,8 +5,9 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 function Home() {
   return (
     <div className={classes.home}>
-      <Sidebar />
-      <div className={classes.container}>hi</div>
+      <div className={classes.container}>
+        <h1>HELLO </h1>
+      </div>
     </div>
   );
 }
