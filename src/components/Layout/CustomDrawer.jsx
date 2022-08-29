@@ -111,7 +111,21 @@ function CustomDrawer(props) {
 
   return (
     <>
-      <Box sx={{ display: "flex" }}>
+      <Box
+        sx={{
+          display: "flex",
+          ".css-i9gxme": {
+            WebkitFlexGrow: "0",
+            flexGrow: "0",
+          },
+          "@media (min-width: 600px)": {
+            ".css-hyum1k-MuiToolbar-root": {
+              display: "flex",
+              justifyContent: "space-between",
+            },
+          },
+        }}
+      >
         <CssBaseline />
         <PrimarySearchAppBar handleDrawerToggle={handleDrawerToggle} />
         <Box
