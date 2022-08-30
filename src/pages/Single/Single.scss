@@ -1,0 +1,84 @@
+.single {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .top {
+    display: flex;
+    flex: 6;
+    gap: 10px;
+    width: 100%;
+    .info {
+      position: relative;
+      padding: 5px 10px;
+      -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+      box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+      border-radius: 10px;
+      width: 100%;
+      flex: 2;
+
+      .edit {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: #b647e624;
+        color: #b647e6;
+        padding: 2px 4px;
+        border-bottom-left-radius: 5px;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      .header {
+        font-size: 25px;
+        color: gray;
+        font-weight: 200;
+        letter-spacing: 1.5px;
+        margin-top: 13px;
+      }
+      .details {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+
+        gap: 15px;
+        .info-details {
+          display: flex;
+          flex-direction: column;
+          .name {
+            font-size: 28px;
+
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+          }
+          .item {
+            margin-bottom: 20px;
+            span {
+              font-size: 15px;
+              color: gray;
+              font-weight: 200;
+              letter-spacing: 1.5px;
+            }
+          }
+        }
+      }
+    }
+    .chart {
+      height: 100%;
+      flex: 4;
+    }
+  }
+  .bottom {
+    margin-top: 10px;
+    padding: 20px;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+    border-radius: 10px;
+    .title {
+      color: gray;
+      margin: 10px;
+      font-size: 24px;
+    }
+  }
+}

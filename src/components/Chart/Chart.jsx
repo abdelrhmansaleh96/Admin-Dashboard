@@ -4,13 +4,12 @@ import {
   AreaChart,
   Area,
   XAxis,
-  YAxis,
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
 
-function Chart() {
+function Chart({ aspect, title }) {
   const data = [
     { name: "January", Total: 1200 },
     { name: "February", Total: 2100 },
@@ -21,8 +20,8 @@ function Chart() {
   ];
   return (
     <div className={classes.chart}>
-      <div className={classes.title}>Last 6 Months (Revenue)</div>{" "}
-      <ResponsiveContainer width="100%" aspect={2 / 1}>
+      <div className={classes.title}>{title}</div>{" "}
+      <ResponsiveContainer width="100%" aspect={aspect}>
         <AreaChart
           width={730}
           height={250}

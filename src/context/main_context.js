@@ -6,8 +6,9 @@ const MainContext = React.createContext();
 const initialState = {};
 const theme = createTheme({
   palette: {
+    mode: "light",
     primary: {
-      main: "#b647e6" ,
+      main: "#b647e6",
     },
     secondary: {
       main: "#c1c1c1",
@@ -17,10 +18,15 @@ const theme = createTheme({
     fontFamily: ["Cairo", "sans-serif"].join(","),
   },
 });
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
 export const MainProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   return (
-    <MainContext.Provider value={{ ...state, theme }}>
+    <MainContext.Provider value={{ ...state, theme, darkTheme }}>
       {children}
     </MainContext.Provider>
   );

@@ -53,7 +53,7 @@ function CustomDrawer(props) {
       </Typography>
       <Divider />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+        {["Dashboard", "Starred", "Send email", "Drafts"].map((text, index) => (
           <ListItem
             key={text}
             disablePadding
